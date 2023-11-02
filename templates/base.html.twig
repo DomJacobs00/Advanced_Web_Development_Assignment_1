@@ -17,24 +17,28 @@
         {# Navbar #}
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/Movie_Reviews_logo.png') }}" width="50" height="50" class="d-inline-block " alt="">
+                <img src="{{ asset('build/images/Movie_Reviews_logo.562d9e79.png') }}" width="50" height="50" class="d-inline-block " alt="">
                 Movie Reviews
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                </ul>
+                <div class="d-inline-flex p-2">
+
+                </div>
+                <a class="nav-link " href="#">Home <span class="sr-only"></span></a>
+
+
+                <div class="input-group d-inline-flex p-2">
+                    <input type="search" class="form-control rounded-pill" placeholder="Search" aria-label="Search">
+                </div>
+
+                <div class="d-inline-flex p-2">
+                    <a class="nav-link" href="#">Sign up/ Login</a>
+                </div>
+
+
             </div>
         </nav>
     </header>
