@@ -1,5 +1,20 @@
+@import '~bootstrap/dist/css/bootstrap.css';
+
+
+
 body {
     background-color: lightgray;
 }
+.navigation-tab{
+    background-color: #fc6203  !important ;
+}
+.navigationSearchCustom{
+    max-width: 50vh !important ;
+    text-align: center;
+}
+.custom-card-spacing{
+    padding-top: 2vh;
+}
+
 
 
