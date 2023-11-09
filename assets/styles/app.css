@@ -5,6 +5,12 @@
 body {
     background-color: lightgray;
 }
+/*
+    Navigation
+ */
+.container{
+    padding-top: 2vh;
+}
 .navigation-tab{
     background-color: #fc6203  !important ;
 }
@@ -12,9 +18,31 @@ body {
     max-width: 50vh !important ;
     text-align: center;
 }
+/*
+    /home (home.html.twig)
+ */
 .custom-card-spacing{
     padding-top: 2vh;
 }
+/*
+    movie (movies/movie.html.twig)
+ */
+.movie-title-custom
+{
+    text-align: center;
+}
+.custom-movie-image{
+    width: 100%;
+    height: 50vh;
+    overflow: hidden;
+    position: relative;
 
+}
+.custom-movie-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
 
 

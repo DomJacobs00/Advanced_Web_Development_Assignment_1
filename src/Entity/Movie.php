@@ -33,9 +33,13 @@ class Movie
     #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
     private Collection $Actors;
 
+    #[ORM\OneToMany(mappedBy: 'movie', targetEntity: Rating::class)]
+    private Collection $ratings;
+
     public function __construct()
     {
         $this->Actors = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -123,6 +127,36 @@ class Movie
     public function removeActor(Actor $actor): static
     {
         $this->Actors->removeElement($actor);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rating>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): static
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
+            $rating->setMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): static
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getMovie() === $this) {
+                $rating->setMovie(null);
+            }
+        }
 
         return $this;
     }

@@ -4,5 +4,28 @@
     Home
 {% endblock %}
 {% block body %}
-    <div class="container"></div>
+    <div class="container">
+        <div class="movie-title-custom">
+            <h1 >{{ movie.title }}</h1>
+            <h3>{{ movie.releaseYear }}</h3>
+            <h5>{{ movie.rating }}/5</h5>
+        </div>
+        <div class="custom-movie-image">
+            <img src="{{ movie.image }}" alt="" class=" ">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2>Description</h2>
+                    <h5>{{ movie.shortDescription }}</h5>
+                </div>
+                <div class="col">
+                    <h2>Rate This Movie</h2>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 {% endblock %}
