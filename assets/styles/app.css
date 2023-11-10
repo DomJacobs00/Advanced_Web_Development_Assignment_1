@@ -1,4 +1,4 @@
-@import '~bootstrap/dist/css/bootstrap.css';
+@import 'bootstrap.css';
 
 
 
@@ -13,10 +13,19 @@ body {
 }
 .navigation-tab{
     background-color: #fc6203  !important ;
+
 }
 .navigationSearchCustom{
     max-width: 50vh !important ;
     text-align: center;
+}
+.custom-width-login{
+    width: 30vh;
+}
+.my-profile-logo-custom
+{
+    width: 4vh;
+    height: 4vh;
 }
 /*
     /home (home.html.twig)

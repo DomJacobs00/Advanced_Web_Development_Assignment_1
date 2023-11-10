@@ -24,14 +24,7 @@ class MovieController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/home', name: 'home', methods: ['GET'])]
-    public function index(): Response
-    {
-        $movies = $this->movieRepository->findAll();
-        return $this->render('home.html.twig',[
-            'movies'=>$movies
-        ]);
-    }
+
     #[Route('/addMovie', name: 'new_movie')]
     public function create(Request $request): Response
     {
