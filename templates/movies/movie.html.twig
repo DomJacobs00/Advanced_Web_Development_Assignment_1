@@ -5,33 +5,45 @@
 {% endblock %}
 {% block body %}
     <div class="container">
-        <div class="movie-title-custom">
-            <h1 >{{ movie.title }}</h1>
-            <h3>{{ movie.releaseYear }}</h3>
-            <h5>{{ movie.rating }}/5</h5>
-        </div>
-        <div class="custom-movie-image">
-            <img src="{{ movie.image }}" alt="" class=" ">
-        </div>
+
+
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-12 col-md-6 custom-movie-image">
+                    <img src="{{ movie.image }}" alt="" class=" ">
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="movie-title-custom">
+                        <h1 >{{ movie.title }}</h1>
+                        <h3>{{ movie.releaseYear }}</h3>
+                    </div>
                     <h2>Description</h2>
                     <h5>{{ movie.shortDescription }}</h5>
                 </div>
-                <div class="col">
-                    <h2>Rate This Movie</h2>
-                    {% if is_granted('ROLE_USER') %}
-                        <div class="rating d-flex justify-content-center align-items-center">
-                            <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 1" class="star" data-value="1">
-                            <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 2" class="star" data-value="2">
-                            <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 3" class="star" data-value="3">
-                            <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 4" class="star" data-value="4">
-                            <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 5" class="star" data-value="5">
-                        </div>
-                    {% else %}
-                        <h5>Please <a href="{{ path('app_login') }}">Log In</a> to rate this movie!</h5>
-                    {% endif %}
+            </div>
+            <div class="container">
+                <h2>Rate This Movie</h2>
+                {% if is_granted('ROLE_USER') %}
+                    <div class="rating d-flex justify-content-center align-items-center">
+                        <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 1" class="star" data-value="1">
+                        <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 2" class="star" data-value="2">
+                        <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 3" class="star" data-value="3">
+                        <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 4" class="star" data-value="4">
+                        <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 5" class="star" data-value="5">
+                    </div>
+                    <div class="form-group">
+                        <label for="movieThoughts"></label>
+                        <textarea class="form-control review-custom" id="movieThoughts" placeholder="What did you think of the movie? (optional)"></textarea>
+                    </div>
+                {% else %}
+                    <h5>Please <a href="{{ path('app_login') }}">Log In</a> to rate this movie!</h5>
+                {% endif %}
+            </div>
+            <div class="container">
+                <h4>User reviews:</h4>
+                <hr>
+                <div class="custom-review-window">
+
                 </div>
             </div>
         </div>

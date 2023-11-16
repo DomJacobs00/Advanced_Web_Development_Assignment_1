@@ -29,12 +29,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Rating::class)]
-    private Collection $ratings;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ReviewNRating::class)]
+    private Collection $reviewNRatings;
+
+
 
     public function __construct()
     {
         $this->ratings = new ArrayCollection();
+        $this->reviewNRatings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,32 +111,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Rating>
+     * @return Collection<int, ReviewNRating>
      */
-    public function getRatings(): Collection
+    public function getReviewNRatings(): Collection
     {
-        return $this->ratings;
+        return $this->reviewNRatings;
     }
 
-    public function addRating(Rating $rating): static
+    public function addReviewNRating(ReviewNRating $reviewNRating): static
     {
-        if (!$this->ratings->contains($rating)) {
-            $this->ratings->add($rating);
-            $rating->setUser($this);
+        if (!$this->reviewNRatings->contains($reviewNRating)) {
+            $this->reviewNRatings->add($reviewNRating);
+            $reviewNRating->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeRating(Rating $rating): static
+    public function removeReviewNRating(ReviewNRating $reviewNRating): static
     {
-        if ($this->ratings->removeElement($rating)) {
+        if ($this->reviewNRatings->removeElement($reviewNRating)) {
             // set the owning side to null (unless already changed)
-            if ($rating->getUser() === $this) {
-                $rating->setUser(null);
+            if ($reviewNRating->getUser() === $this) {
+                $reviewNRating->setUser(null);
             }
         }
 
         return $this;
     }
+
+
 }

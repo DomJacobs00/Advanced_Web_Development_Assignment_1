@@ -4,15 +4,22 @@
 
 body {
     background-color: lightgray;
+    height: 100%;
+    margin: 0; /* Removes default margin */
 }
 /*
     Navigation
  */
 .container{
     padding-top: 2vh;
+    min-height: 100%;
+    background-color: whitesmoke;
 }
+
 .navigation-tab{
     background-color: #fc6203  !important ;
+    padding-top: 0.05rem; /* Reduce the top padding */
+    padding-bottom: 0.05rem; /* Reduce the bottom padding */
 
 }
 .navigationSearchCustom{
@@ -41,7 +48,7 @@ body {
     text-align: center;
 }
 .custom-movie-image{
-    width: 100%;
+    width: 50vh;
     height: 50vh;
     overflow: hidden;
     position: relative;
@@ -55,10 +62,11 @@ body {
 }
 .rating .star {
     margin: 0 5px;
-    width: 50px; /* Adjust as needed */
+    width: 40px; /* Adjust as needed */
     cursor: pointer;
     opacity: 0.3; /* Low default opacity */
     transition: opacity 0.3s ease; /* Smooth transition for opacity change */
+    padding-bottom: 1vh;
 }
 
 .rating .star:hover,
@@ -66,5 +74,21 @@ body {
     opacity: 1; /* Higher opacity on hover */
 }
 
+/*
+Text area for the review
+ */
+.review-custom
+{
+    width: 60%;
+    resize: both;
+}
+.custom-review-window
+{
+    min-height: 10vh;
+}
 
-
+/*user/user.html.twig*/
+.custom-table
+{
+    padding: 2vh;
+}
