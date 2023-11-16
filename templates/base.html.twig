@@ -31,7 +31,8 @@
                         </div>
                     </div>
                     <!-- End of Flex container -->
-                    {% if is_granted('ROLE_USER') %}
+
+                    {% if is_granted('ROLE_ADMIN') %}
                         <div class="d-inline-flex p-2">
                             <div class="d-inline-flex p-2">
                                 <div class="d-inline-flex p-2">
@@ -42,7 +43,7 @@
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li><a class="dropdown-item" href="{{ path('new_movie') }}">Add Movie</a></li>
                                             <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('app_users') }}">Manage users</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a></li>
                                         </ul>
@@ -51,7 +52,7 @@
                                 </div>
                             </div>
                         </div>
-                    {% elseif is_granted('ROLE_ADMIN') %}
+                    {% elseif is_granted('ROLE_USER') %}
                         <div class="d-inline-flex p-2">
                             <div class="d-inline-flex p-2">
                                 <div class="d-inline-flex p-2">
@@ -62,7 +63,7 @@
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li><a class="dropdown-item" href="{{ path('new_movie') }}">Add Movie</a></li>
                                             <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                            <li><a class="dropdown-item" href="#">Manage users</a></li>
+                                            <li><a class="dropdown-item" href="#">Menu item</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a></li>
                                         </ul>
