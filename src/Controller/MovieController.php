@@ -8,6 +8,7 @@ use App\Repository\MovieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,6 +61,7 @@ class MovieController extends AbstractController
             'form'=>$form->createView()
         ]);
     }
+
     #[Route('/home/{id}',  name: 'movie', methods: ['GET'])]
     public function show($id): Response
     {

@@ -53,5 +53,18 @@ body {
     object-fit: cover;
     object-position: top;
 }
+.rating .star {
+    margin: 0 5px;
+    width: 50px; /* Adjust as needed */
+    cursor: pointer;
+    opacity: 0.3; /* Low default opacity */
+    transition: opacity 0.3s ease; /* Smooth transition for opacity change */
+}
+
+.rating .star:hover,
+.rating .star.hover-effect {
+    opacity: 1; /* Higher opacity on hover */
+}
+
 
 

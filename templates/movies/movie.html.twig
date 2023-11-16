@@ -21,7 +21,17 @@
                 </div>
                 <div class="col">
                     <h2>Rate This Movie</h2>
-
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="rating d-flex justify-content-center align-items-center">
+                            <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 1" class="star" data-value="1">
+                            <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 2" class="star" data-value="2">
+                            <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 3" class="star" data-value="3">
+                            <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 4" class="star" data-value="4">
+                            <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 5" class="star" data-value="5">
+                        </div>
+                    {% else %}
+                        <h5>Please <a href="{{ path('app_login') }}">Log In</a> to rate this movie!</h5>
+                    {% endif %}
                 </div>
             </div>
         </div>
