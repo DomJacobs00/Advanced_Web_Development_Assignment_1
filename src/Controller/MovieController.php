@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Movie;
+use App\Entity\ReviewNRating;
 use App\Form\MovieAddType;
+use App\Form\ReviewFormType;
 use App\Repository\MovieRepository;
+use App\Repository\ReviewNRatingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -19,11 +22,13 @@ class MovieController extends AbstractController
 
     private $movieRepository;
 
-    public function __construct(MovieRepository $movieRepository, EntityManagerInterface $em)
+    public function __construct(MovieRepository $movieRepository,ReviewNRatingRepository $reviewRepository, EntityManagerInterface $em)
     {
         $this->movieRepository = $movieRepository;
+        $this->reviewRepository = $reviewRepository;
         $this->em = $em;
     }
+
 
 
     #[Route('/addMovie', name: 'new_movie')]
@@ -62,12 +67,38 @@ class MovieController extends AbstractController
         ]);
     }
 
-    #[Route('/home/{id}',  name: 'movie', methods: ['GET'])]
-    public function show($id): Response
+    #[Route('/home/{id}',  name: 'movie', methods: ['GET', 'POST'])]
+    public function show($id, Request $request): Response
     {
         $movie = $this->movieRepository->find($id);
+
+        //Review submission
+        $review = new ReviewNRating();
+        $form = $this->createForm(ReviewFormType::class, $review);
+        $form->handleRequest($request);
+
+        // getting user id for pivot table
+        $user = $this->getUser();
+
+        // form handling
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $newReview = $form->getData();
+            $review->setMovie($movie);
+            $review->setUser($user);
+            $rating = $form->get('rating')->getData();
+            $review->setRating($rating);
+            $this->em->persist($newReview);
+            $this->em->flush();
+            return $this->redirectToRoute('movie', ['id' => $id]);
+        }
+
+
         return $this->render('movies/movie.html.twig',[
-            'movie'=>$movie
+            'movie'=>$movie,
+            'reviewForm'=>$form->createView(),
         ]);
     }
+
+
 }
