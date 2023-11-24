@@ -92,11 +92,16 @@ class MovieController extends AbstractController
             $this->em->flush();
             return $this->redirectToRoute('movie', ['id' => $id]);
         }
+        //Getting movie reviews
+
+        $reviews = $this->reviewRepository->findAll();
+
 
 
         return $this->render('movies/movie.html.twig',[
             'movie'=>$movie,
             'reviewForm'=>$form->createView(),
+            'reviews' => $reviews,
         ]);
     }
 

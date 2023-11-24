@@ -29,11 +29,13 @@
                     {{ form_start(reviewForm) }}
 
                         <div class="rating d-flex justify-content-center align-items-center">
+                            {{ form_row(reviewForm.rating) }}
+                            <div id="rating"></div>
                             {% for i in 1..5 %}
                                 <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star {{ i }}" class="rating star" data-value="{{ i }}">
                             {% endfor %}
                         </div>
-                        {{ form_row(reviewForm.rating) }}
+
                         <div class="form-group">
                             <label for="movieThoughts"></label>
                             {{ form_row(reviewForm.review) }}
@@ -50,7 +52,11 @@
                 <h4>User reviews:</h4>
                 <hr>
                 <div class="custom-review-window">
-
+                        {% for review in reviews %}
+                            <h5>User</h5>
+                            <h7>Rating {{ review.rating }}/5</h7>
+                            <h6>{{ review.review }}</h6>
+                        {% endfor %}
                 </div>
             </div>
         </div>
