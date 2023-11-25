@@ -17,8 +17,12 @@
                         <h1 >{{ movie.title }}</h1>
                         <h3>{{ movie.releaseYear }}</h3>
                     </div>
+                    <h4>Duration</h4>
+                    <h6>{{ movie.runTime }} min</h6>
                     <h2>Description</h2>
                     <h5>{{ movie.shortDescription }}</h5>
+                    <h4>Directed By:</h4>
+                    <h5>{{ movie.director }}</h5>
                 </div>
             </div>
             <div class="container">
@@ -40,7 +44,7 @@
                             <label for="movieThoughts"></label>
                             {{ form_row(reviewForm.review) }}
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit Rating</button>
+                        <button type="submit" class="btn btn-primary submit-button-custom">Submit Rating</button>
                     {{ form_end(reviewForm) }}
 
 
@@ -53,11 +57,33 @@
                 <hr>
                 <div class="custom-review-window">
                         {% for review in reviews %}
-                            <h5>User</h5>
-                            <h7>Rating {{ review.rating }}/5</h7>
-                            <h6>{{ review.review }}</h6>
+                            <div class="container py-5">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <!-- User icon -->
+                                        <img src="{{ asset('build/images/userLogo2.ea694928.png') }}" alt="User Icon" class="img-fluid custom-user-rating-image">
+                                    </div>
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <!-- User name -->
+                                                <p class="mb-0"><strong>User</strong></p>
+                                            </div>
+                                            <div class="col-12">
+                                                <!-- Rating -->
+                                                <p class="mb-0">Rating {{ review.rating }}/5</p>
+                                            </div>
+                                            <div class="col-12">
+                                                <!-- Review -->
+                                                <p class="mb-0">{{ review.review }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         {% endfor %}
                 </div>
+
             </div>
         </div>
 

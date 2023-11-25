@@ -45,4 +45,12 @@ class MovieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function searchByTerm(string $term)
+    {
+        $qb = $this->createQueryBuilder('m');
+        return $qb->where('m.Title LIKE :term')
+            ->setParameter('term', '%' . $term . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

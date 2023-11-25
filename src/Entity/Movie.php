@@ -36,6 +36,12 @@ class Movie
     #[ORM\OneToMany(mappedBy: 'movie', targetEntity: ReviewNRating::class)]
     private Collection $reviewNRatings;
 
+    #[ORM\Column(length: 255)]
+    private ?string $director = null;
+
+    #[ORM\Column]
+    private ?int $runTime = null;
+
 
     public function __construct()
     {
@@ -147,6 +153,30 @@ class Movie
                 $reviewNRating->setMovie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDirector(): ?string
+    {
+        return $this->director;
+    }
+
+    public function setDirector(string $director): static
+    {
+        $this->director = $director;
+
+        return $this;
+    }
+
+    public function getRunTime(): ?int
+    {
+        return $this->runTime;
+    }
+
+    public function setRunTime(int $runTime): static
+    {
+        $this->runTime = $runTime;
 
         return $this;
     }

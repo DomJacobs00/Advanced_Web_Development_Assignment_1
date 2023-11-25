@@ -31,8 +31,8 @@ body {
 }
 .my-profile-logo-custom
 {
-    width: 4vh;
-    height: 4vh;
+    width: 3vh;
+    height: 3vh;
 }
 /*
     /home (home.html.twig)
@@ -86,9 +86,24 @@ Text area for the review
 {
     min-height: 10vh;
 }
+/*
+User image in reviews
+ */
+
+.custom-user-rating-image
+{
+    height: 9vh;
+    width: 9vh;
+}
+
+
 
 /*user/user.html.twig*/
 .custom-table
 {
     padding: 2vh;
+}
+.submit-button-custom
+{
+    margin-top: 1vh;
 }

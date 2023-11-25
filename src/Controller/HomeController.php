@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Movie;
 use App\Repository\MovieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    private $movieRepository;
+    private MovieRepository $movieRepository;
 
     public function __construct(MovieRepository $movieRepository, EntityManagerInterface $em)
     {
@@ -27,14 +28,13 @@ class HomeController extends AbstractController
             'movies'=>$movies
         ]);
     }
+    #[Route('/search', name: 'search_movies', methods: ["GET"])]
     public function search(Request $request): JsonResponse
     {
-        $searchTerm = $request->query->get('search', '');
-        $movies = $this->movieRepository->findBySearchTerm($searchTerm);
+        $searchTerm = $request->query->get('term');
+        $movies = $this->movieRepository->searchByTerm($searchTerm);;
 
-        // Serialize your movies data to JSON
-        $moviesData = []; // Convert $movies entities to array format or use a serializer
 
-        return $this->json(['movies' => $moviesData]);
+        return $this->json($movies);
     }
 }

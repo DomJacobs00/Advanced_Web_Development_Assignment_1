@@ -94,7 +94,7 @@ class MovieController extends AbstractController
         }
         //Getting movie reviews
 
-        $reviews = $this->reviewRepository->findAll();
+        $reviews = $this->reviewRepository->findBy(['movie' => $movie]);
 
 
 
