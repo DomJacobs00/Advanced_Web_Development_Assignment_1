@@ -7,9 +7,9 @@
     <div class="container">
 
 
-        <div class="container">
+        <div class="container container-fluid">
             <div class="row">
-                <div class="col-12 col-md-6 custom-movie-image">
+                <div class="col-12 col-md custom-movie-image">
                     <img src="{{ movie.image }}" alt="" class=" ">
                 </div>
                 <div class="col-12 col-md-6">
@@ -17,6 +17,8 @@
                         <h1 >{{ movie.title }}</h1>
                         <h3>{{ movie.releaseYear }}</h3>
                     </div>
+                    <h4>Rating: {{ averaggeRating }}/5</h4>
+                    <h6></h6>
                     <h4>Duration</h4>
                     <h6>{{ movie.runTime }} min</h6>
                     <h2>Description</h2>

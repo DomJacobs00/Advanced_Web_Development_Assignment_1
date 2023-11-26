@@ -72,6 +72,7 @@ class MovieController extends AbstractController
     {
         $movie = $this->movieRepository->find($id);
 
+
         //Review submission
         $review = new ReviewNRating();
         $form = $this->createForm(ReviewFormType::class, $review);
@@ -96,12 +97,20 @@ class MovieController extends AbstractController
 
         $reviews = $this->reviewRepository->findBy(['movie' => $movie]);
 
+        // Calculate average rating
+        $sumRatings = 0;
+        $reviewCount = count($reviews);
+        foreach ($reviews as $review) {
+            $sumRatings += $review->getRating();
+        }
+        $averageRating = $reviewCount > 0 ? $sumRatings / $reviewCount : 0;
 
 
         return $this->render('movies/movie.html.twig',[
-            'movie'=>$movie,
-            'reviewForm'=>$form->createView(),
-            'reviews' => $reviews,
+            'movie'         =>$movie,
+            'reviewForm'    =>$form->createView(),
+            'reviews'       => $reviews,
+            'averaggeRating'=>$averageRating,
         ]);
     }
 

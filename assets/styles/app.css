@@ -66,6 +66,13 @@ body {
 .custom-card-spacing{
     padding-top: 2vh;
 }
+.custom-card-image
+{
+    height: 20vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
 /*
     movie (movies/movie.html.twig)
  */
