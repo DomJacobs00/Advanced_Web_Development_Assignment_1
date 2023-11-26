@@ -54,6 +54,13 @@ body {
     margin-left: 1vh;
 }
 /*
+    registration page
+ */
+.registration-card
+{
+    margin-bottom: 2vh;
+}
+/*
     /home (home.html.twig)
  */
 .custom-card-spacing{
@@ -114,7 +121,13 @@ User image in reviews
     height: 9vh;
     width: 9vh;
 }
-
+/*
+/addMovie
+ */
+.submitBtn
+{
+    margin: 1vh 0vh;
+}
 
 
 /*user/user.html.twig*/

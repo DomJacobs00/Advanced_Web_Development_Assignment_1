@@ -20,6 +20,12 @@ class MovieAddType extends AbstractType
             ->add('ReleaseYear', TextType::class,[
                 'attr'=>['class'=>'form-control'],
             ])
+            ->add('director', TextType::class,[
+                'attr'=>['class'=>'form-control'],
+            ])
+            ->add('runTime', TextType::class,[
+                'attr'=>['class'=>'form-control'],
+            ])
             ->add('ShortDescription', TextType::class,[
                 'attr'=>['class'=>'form-control'],
             ])
