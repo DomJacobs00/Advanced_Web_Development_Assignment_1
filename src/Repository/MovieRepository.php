@@ -24,17 +24,17 @@ class MovieRepository extends ServiceEntityRepository
 //    /**
 //     * @return Movie[] Returns an array of Movie objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function searchByTerm($value): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('LOWER(m.Title) LIKE LOWER(:val)')
+            ->setParameter('val', '%' . $value . '%')
+            ->orderBy('m.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Movie
 //    {
@@ -45,12 +45,12 @@ class MovieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-    public function searchByTerm(string $term)
-    {
-        $qb = $this->createQueryBuilder('m');
-        return $qb->where('m.Title LIKE :term')
-            ->setParameter('term', '%' . $term . '%')
-            ->getQuery()
-            ->getResult();
-    }
+//    public function searchByTerm(string $term)
+//    {
+//        $qb = $this->createQueryBuilder('m');
+//        return $qb->where('m.Title LIKE :term')
+//            ->setParameter('term', '%' . $term . '%')
+//            ->getQuery()
+//            ->getResult();
+//    }
 }

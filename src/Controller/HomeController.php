@@ -32,9 +32,18 @@ class HomeController extends AbstractController
     public function search(Request $request): JsonResponse
     {
         $searchTerm = $request->query->get('term');
-        $movies = $this->movieRepository->searchByTerm($searchTerm);;
+        $movies = $this->movieRepository->searchByTerm($searchTerm);
 
+        $moviesArray = array_map(function ($movie) {
+            return [
+                'id'    => $movie->getId(),
+                'title' => $movie->getTitle(),
+                'image' => $movie->getImage(),
+                'releaseYear' => $movie->getReleaseYear(),
+            ];
+        }, $movies);
 
-        return $this->json($movies);
+        // Return the JSON response
+        return $this->json($moviesArray);
     }
 }

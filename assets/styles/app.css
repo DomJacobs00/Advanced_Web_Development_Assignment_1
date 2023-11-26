@@ -25,6 +25,7 @@ body {
 .navigationSearchCustom{
     max-width: 50vh !important ;
     text-align: center;
+    margin-left: 15px;
 }
 .custom-width-login{
     width: 30vh;
@@ -33,6 +34,24 @@ body {
 {
     width: 3vh;
     height: 3vh;
+}
+.search-results-container {
+    margin-left: 15px;
+    width: 25%; /* Your desired width */
+    background: white; /* Or any other color */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: for better visibility */
+    z-index: 1000; /* Ensure it's above other content */
+    display: none; /* Hide by default */
+}
+.search-result-item
+{
+    margin: 1vh 0vh;
+}
+#movie-search-results
+{
+    width: 6vh;
+    height: 9vh;
+    margin-left: 1vh;
 }
 /*
     /home (home.html.twig)
