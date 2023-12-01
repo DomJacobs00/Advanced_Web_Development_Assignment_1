@@ -32,8 +32,9 @@ body {
 }
 .my-profile-logo-custom
 {
-    width: 3vh;
-    height: 3vh;
+    width: 4vh;
+    height: 4vh;
+    padding: 0;
 }
 .search-results-container {
     margin-left: 15px;
@@ -52,6 +53,7 @@ body {
     width: 6vh;
     height: 9vh;
     margin-left: 1vh;
+    margin-right: 1vh;
 }
 /*
     registration page

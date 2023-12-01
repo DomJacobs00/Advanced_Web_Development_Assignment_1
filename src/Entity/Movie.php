@@ -27,26 +27,25 @@ class Movie
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Image = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $Rating = null;
 
-    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
+    #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies', cascade: ['persist'])]
     private Collection $Actors;
 
     #[ORM\OneToMany(mappedBy: 'movie', targetEntity: ReviewNRating::class)]
     private Collection $reviewNRatings;
 
-    #[ORM\Column(length: 255)]
-    private ?string $director = null;
-
     #[ORM\Column]
     private ?int $runTime = null;
+
+    #[ORM\ManyToMany(targetEntity: Director::class, inversedBy: 'movies', cascade: ['persist'])]
+    private Collection $directors;
 
 
     public function __construct()
     {
         $this->Actors = new ArrayCollection();
         $this->reviewNRatings = new ArrayCollection();
+        $this->directors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -157,17 +156,7 @@ class Movie
         return $this;
     }
 
-    public function getDirector(): ?string
-    {
-        return $this->director;
-    }
 
-    public function setDirector(string $director): static
-    {
-        $this->director = $director;
-
-        return $this;
-    }
 
     public function getRunTime(): ?int
     {
@@ -177,6 +166,30 @@ class Movie
     public function setRunTime(int $runTime): static
     {
         $this->runTime = $runTime;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Director>
+     */
+    public function getDirectors(): Collection
+    {
+        return $this->directors;
+    }
+
+    public function addDirector(Director $director): static
+    {
+        if (!$this->directors->contains($director)) {
+            $this->directors->add($director);
+        }
+
+        return $this;
+    }
+
+    public function removeDirector(Director $director): static
+    {
+        $this->directors->removeElement($director);
 
         return $this;
     }

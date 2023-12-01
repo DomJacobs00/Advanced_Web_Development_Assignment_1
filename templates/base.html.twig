@@ -35,22 +35,17 @@
 
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="d-inline-flex p-2">
-                            <div class="d-inline-flex p-2">
-                                <div class="d-inline-flex p-2">
-                                    <div class="btn-group">
-                                        <a class="btn  dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="{{ asset('build/images/myProfile.5845a7d5.png') }}" alt="myProfileLogo" class=" my-profile-logo-custom" >
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="{{ path('new_movie') }}">Add Movie</a></li>
-                                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                            <li><a class="dropdown-item" href="{{ path('app_users') }}">Manage users</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a></li>
-                                        </ul>
-                                    </div>
 
-                                </div>
+                            <div class="btn-group">
+                                <a class="btn  dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{{ asset('build/images/myProfile.5845a7d5.png') }}" alt="myProfileLogo" class=" my-profile-logo-custom" >
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="{{ path('new_movie') }}">Add Movie</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_users') }}">Manage users</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a></li>
+                                </ul>
                             </div>
                         </div>
                     {% elseif is_granted('ROLE_USER') %}
@@ -63,8 +58,6 @@
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li><a class="dropdown-item" href="{{ path('new_movie') }}">Add Movie</a></li>
-                                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                            <li><a class="dropdown-item" href="#">Menu item</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a></li>
                                         </ul>

@@ -17,18 +17,29 @@
                         <h1 >{{ movie.title }}</h1>
                         <h3>{{ movie.releaseYear }}</h3>
                     </div>
-                    <h4>Rating: {{ averaggeRating }}/5</h4>
+                    {% if hasRatings %}
+                        <h4>Rating: {{ averaggeRating }}/5</h4>
+                    {% else %}
+                        <h4>  No ratings yet</h4>
+                    {% endif %}
                     <h6></h6>
                     <h4>Duration</h4>
                     <h6>{{ movie.runTime }} min</h6>
                     <h2>Description</h2>
                     <h5>{{ movie.shortDescription }}</h5>
                     <h4>Directed By:</h4>
-                    <h5>{{ movie.director }}</h5>
+                    <h5>{{ movie.directors|map(director => director.name)|join(', ') }}</h5>
+                    <h4>Actors:</h4>
+                    <h5>{{ movie.actors|map(actor => actor.Name)|join(', ') }}</h5>
+
                 </div>
             </div>
             <div class="container">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <button class="btn btn-danger">Delete Movie</button>
+                {% endif %}
                 <h2>Rate This Movie </h2>
+
                 {% if is_granted('ROLE_USER') %}
 
 
@@ -58,6 +69,7 @@
                 <h4>User reviews:</h4>
                 <hr>
                 <div class="custom-review-window">
+                    {% if hasRatings %}
                         {% for review in reviews %}
                             <div class="container py-5">
                                 <div class="row align-items-center">
@@ -84,6 +96,9 @@
                                 </div>
                             </div>
                         {% endfor %}
+                    {% else %}
+                        <h5 style="text-align: center"> No Reviews</h5>
+                    {% endif %}
                 </div>
 
             </div>

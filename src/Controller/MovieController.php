@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Actor;
+use App\Entity\Director;
 use App\Entity\Movie;
 use App\Entity\ReviewNRating;
 use App\Form\MovieAddType;
@@ -56,6 +58,52 @@ class MovieController extends AbstractController
                 }
                 $newMovie->setImage('/uploads/'. $newFileName);
             }
+            // Obtaining the Directors data and creating Entities with it.
+            // if there is more than 1 for loop creates all the directors and links them with the movie
+            $directors = $form->get('director')->getData();
+            //spliting the string by comma
+            $directorsArray = explode(',', $directors);
+            //trimming the whitespaces
+            $directorsArray = array_map('trim', $directorsArray);
+            foreach ($directorsArray as $directorName)
+            {
+                $director = $this->em->getRepository(Director::class)->findOneByName($directorName);
+                if(!$director)
+                {
+                    $director = new Director();
+                    $director->setName($directorName);
+                    $movie->addDirector($director);
+
+                }
+
+            }
+            // Obtaining the Actors data and creating Entities with it.
+            // if there is more than 1 for loop creates all the Actors and links them with the movie
+            $actors = $form->get('actors')->getData();
+            $actorsArray = explode(',',$actors);
+            $actorsArray = array_map('trim', $actorsArray);
+
+            foreach ($actorsArray as $actorName)
+            {
+                $actor = $this->em->getRepository(Actor::class)->findOneByName($actorName);
+                if(!$actor)
+                {
+                    $actor = new Actor();
+                    $actor->setName($actorName);
+                    $movie->addActor($actor);
+
+                }
+
+            }
+
+
+
+
+
+
+
+            $this->em->persist($director);
+            $this->em->persist($actor);
             $this->em->persist($newMovie);
             $this->em->flush();
             return $this->redirectToRoute('home');
@@ -104,13 +152,15 @@ class MovieController extends AbstractController
             $sumRatings += $review->getRating();
         }
         $averageRating = $reviewCount > 0 ? $sumRatings / $reviewCount : 0;
-
+        // if there are ratings the actual rating will be displayed, otherwise a message
+        $hasRatings = $reviewCount > 0;
 
         return $this->render('movies/movie.html.twig',[
             'movie'         =>$movie,
             'reviewForm'    =>$form->createView(),
             'reviews'       => $reviews,
             'averaggeRating'=>$averageRating,
+            'hasRatings'=>$hasRatings,
         ]);
     }
 

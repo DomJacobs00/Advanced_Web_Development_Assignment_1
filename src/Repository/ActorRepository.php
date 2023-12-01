@@ -20,6 +20,14 @@ class ActorRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Actor::class);
     }
+    public function findOneByName(string $name): ?Actor
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.Name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
 //    /**
 //     * @return Actor[] Returns an array of Actor objects
