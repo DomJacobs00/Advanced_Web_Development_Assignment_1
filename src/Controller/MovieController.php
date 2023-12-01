@@ -178,6 +178,7 @@ class MovieController extends AbstractController
         }
         return $this->redirectToRoute('home');
     }
+
     #[Route('home/deletereview/{id}', name:'review_delete', methods: ['POST'])]
     public function deleteReview($id, Request $request): RedirectResponse
     {

@@ -118,9 +118,9 @@
                                                 <!-- Review -->
                                                 <p class="mb-0">{{ review.review }}</p>
                                             </div>
-                                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MODERATOR') %}
+                                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MODERATOR') or  app.user and review.user == app.user %}
                                                 <div class="col-12">
-                                                    <button class="btn btn-sm btn-danger custom-margin-btn " data-bs-toggle="modal" data-bs-target="#deleteReviewModal">
+                                                    <button class="btn btn-sm btn-danger custom-margin-btn " data-bs-toggle="modal" data-bs-target="#deleteReviewModal" data-review-id="{{ review.id }}">
                                                         Delete Review
                                                     </button>
                                                 </div>
