@@ -1,15 +1,29 @@
-<form action="">
-    <div class="rating d-flex justify-content-center align-items-center">
-        <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 1" class="star" data-value="1">
-        <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 2" class="star" data-value="2">
-        <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 3" class="star" data-value="3">
-        <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 4" class="star" data-value="4">
-        <img src="{{ asset('build/images/icons8-star-48.1422c75c.png') }}" alt="Star 5" class="star" data-value="5">
+{% if is_granted('ROLE_ADMIN') %}
+    <!-- Trigger/Open The Modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        Delete Movie
+    </button>
+{% endif %}
+
+<!-- The Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete "{{ movie.title }}"?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- Form to submit deletion request -->
+                <form action="{{ path('movie_delete', {'id': movie.id}) }}" method="post" style="display: inline;">
+                    <input type="hidden" name="token" value="{{ csrf_token('delete-movie') }}">
+                    <button type="submit" class="btn btn-danger">Confirm</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="movieThoughts"></label>
-        <textarea class="form-control review-custom" id="movieThoughts" placeholder="What did you think of the movie? (optional)"></textarea>
-    </div>
-    div
-    <button type="submit" class="btn btn-primary">Submit Rating</button>
-</form>
+</div>

@@ -137,6 +137,10 @@ User image in reviews
 {
     margin: 1vh 0vh;
 }
+.custom-margin-btn
+{
+    margin-top: 1vh;
+}
 
 
 /*user/user.html.twig*/

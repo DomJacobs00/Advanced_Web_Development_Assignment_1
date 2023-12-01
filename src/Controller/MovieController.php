@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +24,7 @@ class MovieController extends AbstractController
     private $em;
 
     private $movieRepository;
+    private $reviewRepository;
 
     public function __construct(MovieRepository $movieRepository,ReviewNRatingRepository $reviewRepository, EntityManagerInterface $em)
     {
@@ -95,13 +97,6 @@ class MovieController extends AbstractController
                 }
 
             }
-
-
-
-
-
-
-
             $this->em->persist($director);
             $this->em->persist($actor);
             $this->em->persist($newMovie);
@@ -159,10 +154,49 @@ class MovieController extends AbstractController
             'movie'         =>$movie,
             'reviewForm'    =>$form->createView(),
             'reviews'       => $reviews,
-            'averaggeRating'=>$averageRating,
+            'averageRating'=>$averageRating,
             'hasRatings'=>$hasRatings,
         ]);
     }
+    #[Route('home/delete/{id}', name: 'movie_delete', methods: ['POST'])]
+    public function deleteMovie($id, Request $request):Response
+    {
+        $movie = $this->movieRepository->find($id);
+        if(!$movie)
+        {
+            throw $this->createNotFoundException('No movie found for id '.$id);
+        }
+        // CSRF token validation
+        $submittedToken = $request->request->get('token');
+        if ($this->isCsrfTokenValid('delete-movie', $submittedToken)) {
+            // Remove the movie entity
+            $this->em->remove($movie);
+            $this->em->flush();
 
+            // Redirect after deletion
+            return $this->redirectToRoute('home');
+        }
+        return $this->redirectToRoute('home');
+    }
+    #[Route('home/deletereview/{id}', name:'review_delete', methods: ['POST'])]
+    public function deleteReview($id, Request $request): RedirectResponse
+    {
+        $review = $this->reviewRepository->find($id);
+        if(!$review)
+        {
+            throw $this->createNotFoundException('No review found for id '.$id .'Probably already deleted');
+        }
+        $submittedToken = $request->request->get('token');
+        if ($this->isCsrfTokenValid('delete-review', $submittedToken)) {
+            // Remove the movie entity
+            $this->em->remove($review);
+            $this->em->flush();
+
+            // Redirect after deletion
+            $referer = $request->headers->get('referer');;
+        }
+        $referer = $request->headers->get('referer');
+        return new RedirectResponse($referer);
+    }
 
 }

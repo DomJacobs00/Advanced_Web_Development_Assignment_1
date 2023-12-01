@@ -38,6 +38,7 @@ class RegistrationController extends AbstractController
                 $plainTextPassword
             );
             $user->setPassword($hashedPassword);
+            $user->setRoles(['ROLE_USER']);
             $this->em->persist($newUser);
             $this->em->flush();
             return $this->redirectToRoute('home');

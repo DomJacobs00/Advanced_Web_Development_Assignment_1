@@ -14,33 +14,60 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="movie-title-custom">
-                        <h1 >{{ movie.title }}</h1>
+                        <h1>{{ movie.title }}</h1>
                         <h3>{{ movie.releaseYear }}</h3>
                     </div>
                     {% if hasRatings %}
-                        <h4>Rating: {{ averaggeRating }}/5</h4>
+                        <h4>Rating: {{ averageRating }}/5</h4>
                     {% else %}
-                        <h4>  No ratings yet</h4>
+                        <h4>No ratings yet</h4>
                     {% endif %}
                     <h6></h6>
                     <h4>Duration</h4>
-                    <h6>{{ movie.runTime }} min</h6>
+                    {% set hours = (movie.runTime // 60) %}
+                    {% set minutes = movie.runTime % 60 %}
+                    <h6>
+                        {% if hours > 0 %}
+                            {{ hours }}h {{ minutes }}min
+                        {% else %}
+                            {{ minutes }}min
+                        {% endif %}
+                    </h6>
                     <h2>Description</h2>
                     <h5>{{ movie.shortDescription }}</h5>
                     <h4>Directed By:</h4>
                     <h5>{{ movie.directors|map(director => director.name)|join(', ') }}</h5>
                     <h4>Actors:</h4>
                     <h5>{{ movie.actors|map(actor => actor.Name)|join(', ') }}</h5>
-
                 </div>
             </div>
+
             <div class="container">
                 {% if is_granted('ROLE_ADMIN') %}
-                    <button class="btn btn-danger">Delete Movie</button>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Movie</button>
                 {% endif %}
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModallLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModallLabel">Delete Movie</h5>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete {{ movie.title }}?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form action="{{ path('movie_delete', {'id': movie.id}) }}" method="post" style="display: inline;">
+                                    <input type="hidden" name="token" value="{{ csrf_token('delete-movie') }}">
+                                    <button type="submit" class="btn btn-danger">Confirm</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <h2>Rate This Movie </h2>
 
-                {% if is_granted('ROLE_USER') %}
+                {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') or is_granted('ROLE_MODERATOR') %}
 
 
                     {{ form_start(reviewForm) }}
@@ -90,6 +117,35 @@
                                             <div class="col-12">
                                                 <!-- Review -->
                                                 <p class="mb-0">{{ review.review }}</p>
+                                            </div>
+                                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MODERATOR') %}
+                                                <div class="col-12">
+                                                    <button class="btn btn-sm btn-danger custom-margin-btn " data-bs-toggle="modal" data-bs-target="#deleteReviewModal">
+                                                        Delete Review
+                                                    </button>
+                                                </div>
+
+                                            {% endif %}
+                                            <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteReviewModalLabel">Confirm Delete</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to delete this review?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <!-- Form to submit deletion request -->
+                                                            <form action="{{ path('review_delete', {'id': review.id}) }}" method="post" style="display: inline;">
+                                                                <input type="hidden" name="token" value="{{ csrf_token('delete-review') }}">
+                                                                <button type="submit" class="btn btn-danger">Confirm</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

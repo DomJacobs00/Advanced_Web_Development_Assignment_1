@@ -3,29 +3,39 @@
 {% block title %}Manage users{% endblock %}
 
 {% block body %}
-
-    <div class="container">
-        <table class="table table-bordered table-striped custom-table">
-            <thead class="thead-dark">
-            <tr>
-                <th>Email</th>
-                <th>Roles</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="container">
+            <table class="table table-bordered table-striped custom-table">
+                <thead class="thead-dark">
                 <tr>
-                    <td>{{ user.email }}</td>
-                    <td>
-                        {% for role in user.roles %}
-                        {{ role }}
-                        {% endfor %}
-                    </td>
-                    <td><a href="#" class="btn btn-secondary">More</a></td>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Action</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <form action="{{ path('save_user_role', {'id': user.id}) }}" method="post">
+                                <select name="role" class="form-select form-select-sm">
+                                    <option value="ROLE_ADMIN" {{ 'ROLE_ADMIN' in user.roles ? 'selected' : '' }}>Admin</option>
+                                    <option value="ROLE_MODERATOR" {{ 'ROLE_MODERATOR' in user.roles ? 'selected' : '' }}>Moderator</option>
+                                    <option value="ROLE_USER" {{ 'ROLE_USER' in user.roles ? 'selected' : '' }}>User</option>
+                                    <!-- Add more roles as needed -->
+                                </select>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+
 {% endblock %}
