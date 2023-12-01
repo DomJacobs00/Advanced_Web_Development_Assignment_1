@@ -23,14 +23,23 @@ class MovieAddType extends AbstractType
             ])
             ->add('director', TextType::class,[
                 'mapped' =>false,
-                'attr'=>['class'=>'form-control'],
+                'attr'=>[
+                    'class'=>'form-control',
+                    'placeholder' => 'Enter Director name, for multiple use a comma between'
+                ],
             ])
             ->add('actors', TextType::class,[
                 'mapped' =>false,
-                'attr'=>['class'=>'form-control'],
+                'attr'=>[
+                    'class'=>'form-control',
+                    'placeholder' => 'Enter Actor name, for multiple use a comma between'
+                ],
             ])
             ->add('runTime', TextType::class,[
-                'attr'=>['class'=>'form-control'],
+                'attr'=>[
+                    'class'=>'form-control',
+                    'placeholder' => 'Enter runtime in minutes'
+                ],
             ])
             ->add('ShortDescription', TextType::class,[
                 'attr'=>['class'=>'form-control'],
