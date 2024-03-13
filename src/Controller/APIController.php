@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use GuzzleHttp\Client;
 
 
 class APIController extends AbstractFOSRestController
@@ -54,5 +55,35 @@ class APIController extends AbstractFOSRestController
         $view->setFormat('json');
 
         return $this->handleView($view);
+    }
+    #[Rest\Get('/api/v1/movie/{name}', name: 'movie_by_name')]
+    public function getMovieByName($name): Response
+    {
+        $client = new Client();
+
+        $apiKey = 'dde5d30e';
+
+        try {
+            $response = $client->request('GET', 'http://www.omdbapi.com/', [
+                'query' => [
+                    'apikey'=>$apiKey,
+                    't'=>$name,
+                ]
+            ]);
+
+            $statusCode = $response->getStatusCode();
+            $content = $response->getBody()->getContents();
+
+            if ($statusCode == 200) {
+                $movieData = json_decode($content, true);
+                return $this->json($movieData);
+            }
+            return $this->json(['error' => 'Failed to fetch movie details'], 404);
+        } catch (\Exception $e)
+        {
+            return $this->json(['error' => 'An error occurred'], 500);
+        }
+
+
     }
 }
