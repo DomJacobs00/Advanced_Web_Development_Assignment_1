@@ -1,13 +1,31 @@
 http://127.0.0.1:8000/api/v1/movies
 Accept: application/json
-
-###
-GET http://127.0.0.1:8000/api/v1/movies/8
+#Outputs all the movies from the local database
+###Find a movie in the local database by the ID
+GET http://127.0.0.1:8000/api/v1/movies/search/8
 Accept: application/json
 
-###
-GET http://127.0.0.1:8000/api/v1/movie/Joker
+### Find a movie in the local database by the name
+GET http://127.0.0.1:8000/api/v1/movies/search/Batman
 Accept: application/json
 
+### Find a movie in OMDb database by the name
+GET http://127.0.0.1:8000/api/v1/movie/Iron Man
+Accept: application/json
+### Request to add a movie to the database
+POST http://127.0.0.1:8000/api/v1/movies
+Accept: application/json
+
+{
+"Title":"Iron Man",
+"ReleaseYear":"2008",
+"ShortDescription":"After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
+"Image":"https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
+"runTime":"126",
+"Actors":"Robert Downey Jr., Gwyneth Paltrow, Terrence Howard",
+"directors":"Jon Favreau"
+}
 ###
+
+
 

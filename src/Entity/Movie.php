@@ -6,6 +6,10 @@ use App\Repository\MovieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+
+
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
@@ -13,31 +17,39 @@ class Movie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['movie_details'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['movie_details'])]
     private ?string $Title = null;
 
     #[ORM\Column]
+    #[Groups(['movie_details'])]
     private ?int $ReleaseYear = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['movie_details'])]
     private ?string $ShortDescription = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['movie_details'])]
     private ?string $Image = null;
 
 
     #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies', cascade: ['persist'])]
+    #[Groups(['movie_details'])]
     private Collection $Actors;
 
     #[ORM\OneToMany(mappedBy: 'movie', targetEntity: ReviewNRating::class)]
     private Collection $reviewNRatings;
 
     #[ORM\Column]
+    #[Groups(['movie_details'])]
     private ?int $runTime = null;
 
     #[ORM\ManyToMany(targetEntity: Director::class, inversedBy: 'movies', cascade: ['persist'])]
+    #[Groups(['movie_details'])]
     private Collection $directors;
 
 
