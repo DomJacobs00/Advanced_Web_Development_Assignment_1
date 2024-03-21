@@ -13,10 +13,11 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        #api:
-        #    pattern: ^/api
-        #    stateless: true
-        #    jwt: ~
+        api:
+            pattern: ^/api
+            stateless: true
+            custom_authenticators:
+                - App\Security\ApiTokenAuthenticator
         main:
             lazy: true
             provider: app_user_provider
@@ -25,7 +26,6 @@ security:
                 check_path: app_login
             logout:
                 path: app_logout
-                # where to redirect after logout
                 target: home
 
             # activate different ways to authenticate
@@ -37,7 +37,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         #- {path: ^/api, roles: IS_AUTHENTICATED_FULLY}
+         - { path: ^/api/v1/movies, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/v1/movies/search, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/v1, roles: ROLE_USER }
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/moderator, roles: ROLE_MODERATOR}
          - { path: ^/profile, roles: ROLE_USER }

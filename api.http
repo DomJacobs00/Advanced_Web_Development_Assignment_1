@@ -10,7 +10,7 @@ GET http://127.0.0.1:8000/api/v1/movies/search/Batman
 Accept: application/json
 
 ### Find a movie in OMDb database by the name
-GET http://127.0.0.1:8000/api/v1/movie/Iron Man
+GET http://127.0.0.1:8000/api/v1/movie/The Witcher: Nightmare Of The Wolf
 Accept: application/json
 ### Request to add a movie to the database
 POST http://127.0.0.1:8000/api/v1/movies
@@ -25,6 +25,10 @@ Accept: application/json
 "Actors":"Robert Downey Jr., Gwyneth Paltrow, Terrence Howard",
 "directors":"Jon Favreau"
 }
+### Get All reviews of a chosen movie
+GET http://127.0.0.1:8000/api/v1/movies/9/comments
+Accept: application/json
+
 ###
 
 

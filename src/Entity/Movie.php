@@ -17,15 +17,16 @@ class Movie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['movie_details'])]
+    #[Groups(['movie_details','movie_review_details'])]
+
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['movie_details'])]
+    #[Groups(['movie_details','movie_review_details'])]
     private ?string $Title = null;
 
     #[ORM\Column]
-    #[Groups(['movie_details'])]
+    #[Groups(['movie_details','movie_review_details'])]
     private ?int $ReleaseYear = null;
 
     #[ORM\Column(length: 255)]

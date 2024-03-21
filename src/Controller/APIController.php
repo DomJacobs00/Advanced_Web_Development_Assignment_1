@@ -7,6 +7,7 @@ use App\Entity\Director;
 use App\Entity\Movie;
 use App\Form\ApiMovieFormType;
 use App\Repository\MovieRepository;
+use App\Repository\ReviewNRatingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 //use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,12 +26,14 @@ class APIController extends AbstractFOSRestController
     private MovieRepository $movieRepository;
     private EntityManagerInterface $em;
     private SerializerInterface $serializer;
+    private ReviewNRatingRepository $rnrRepository;
 
-    public function __construct(MovieRepository $movieRepository, EntityManagerInterface $em, SerializerInterface $serializer)
+    public function __construct(MovieRepository $movieRepository, EntityManagerInterface $em, SerializerInterface $serializer, ReviewNRatingRepository $rnrRepository)
     {
         $this->movieRepository = $movieRepository;
         $this->em = $em;
         $this->serializer = $serializer;
+        $this->rnrRepository = $rnrRepository;
     }
     #[Rest\Get('/api/v1/movies', name: 'movie_list')]
     public function getMovies(): Response
@@ -154,13 +157,31 @@ class APIController extends AbstractFOSRestController
 
     }
     #[Rest\Delete('/api/v1/movies/{id}', name: 'delete_movie')]
-    public function removeMovie()
+    public function removeMovie($id)
     {
+        $movie = $this->movieRepository->find($id);
 
     }
 
     #[Rest\Get('/api/v1/movies/{movieId}/comments', name: 'get_comments_for_movie')]
+    public function getComments($movieId): Response
+    {
+        $criteria = ['movie'=>$movieId];
+        $reviews = $this->rnrRepository->findBy($criteria);
+        if(!$reviews)
+        {
+            // Directly returning a Response with 204 No Content
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        }
+        $json = $this->serializer->serialize($reviews, 'json',  ['groups' => 'movie_review_details']);
+        return new Response($json, 200, ['Content-Type' => 'application/json']);
+
+    }
     #[Rest\Post('/api/v1/movies/{movieId}/comments', name: 'add_comment_to_movie')]
+    public function postComment($movieId): Response
+    {
+
+    }
     #[Rest\Put('/api/v1/movies/{movieId}/comments/{commentId}', name: 'update_comment_for_movie')]
     #[Rest\Delete('/api/v1/movies/{movieId}/comments/{commentId}', name: 'delete_comment_for_movie')]
 
